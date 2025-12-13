@@ -1,0 +1,16 @@
+{
+    "name": "password-otp-functions",
+    "version": "1.0.0",
+    "description": "Appwrite functions for OTP-based password recovery",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+      "node-appwrite": "^11.0.0",
+      "nodemailer": "^6.9.7"
+    },
+    "engines": {
+      "node": ">=18.0.0"
+    }
+  }
