@@ -93,9 +93,9 @@ module.exports = async ({ req, res, log, error }) => {
         process.env.DATABASE_ID,
         process.env.USERS_COLLECTION_ID,
         [
-          sdk.Query.equal('uid', [user.$id])
+          sdk.Query.equal('$id', user.$id)
         ]
-      );
+      );      
       if (userDocs.total === 0) {
         return res.json({
           success: false,
