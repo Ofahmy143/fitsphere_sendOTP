@@ -151,61 +151,131 @@ module.exports = async ({ req, res, log, error }) => {
       });
       const emailHtml = `
         <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="utf-8">
-          <style>
-            body {
-              font-family: Arial, sans-serif;
-              line-height: 1.6;
-              color: #333;
-              max-width: 600px;
-              margin: 0 auto;
-              padding: 20px;
-            }
-            .container {
-              background-color: #f9f9f9;
-              border-radius: 10px;
-              padding: 30px;
-            }
-            .otp-code {
-              background-color: #9ECF98;
-              color: #2C2C2C;
-              font-size: 32px;
-              font-weight: bold;
-              text-align: center;
-              padding: 20px;
-              border-radius: 8px;
-              letter-spacing: 8px;
-              margin: 20px 0;
-            }
-            .warning {
-              background-color: #fff3cd;
-              border-left: 4px solid #ffc107;
-              padding: 12px;
-              margin: 20px 0;
-            }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <h2>Password Reset Request</h2>
-            <p>Hi there,</p>
-            <p>We received a request to reset your password. Use the OTP code below to complete the process:</p>
-            
-            <div class="otp-code">${otp}</div>
-            
-            <p><strong>This code will expire in ${OTP_EXPIRY_MINUTES} minutes.</strong></p>
-            
-            <div class="warning">
-              <strong>⚠️ Security Notice:</strong><br>
-              If you didn't request this password reset, please ignore this email and your password will remain unchanged.
-            </div>
-            
-            <p>Thanks,<br>Gym App Team</p>
-          </div>
-        </body>
-        </html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>FitSphere – Password Reset</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #2c2c2c;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+      color: #9ecf98;
+    }
+
+    .wrapper {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: #1f1f1f;
+      border-radius: 18px;
+      padding: 36px 32px;
+      border: 1px solid rgba(158, 207, 152, 0.25);
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #9ecf98;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #d0d0d0;
+      margin: 0 0 16px;
+    }
+
+    .otp-code {
+      background-color: #9ecf98;
+      color: #1f1f1f;
+      font-size: 34px;
+      font-weight: 700;
+      text-align: center;
+      padding: 22px 0;
+      border-radius: 14px;
+      letter-spacing: 10px;
+      margin: 32px 0;
+    }
+
+    .expiry {
+      text-align: center;
+      font-size: 14px;
+      color: #bdbdbd;
+      margin-bottom: 28px;
+    }
+
+    .notice {
+      border-top: 1px solid rgba(158, 207, 152, 0.25);
+      padding-top: 16px;
+      font-size: 14px;
+      color: #bdbdbd;
+      margin-top: 24px;
+    }
+
+    .footer {
+      margin-top: 36px;
+      font-size: 13px;
+      color: #9a9a9a;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="container">
+
+      <div class="brand">
+        <h1>FitSphere</h1>
+      </div>
+
+      <h2>Password reset</h2>
+
+      <p>
+        We received a request to reset the password for your FitSphere account.
+        Use the one-time code below to continue.
+      </p>
+
+      <div class="otp-code">${otp}</div>
+
+      <div class="expiry">
+        This code expires in <strong>${OTP_EXPIRY_MINUTES} minutes</strong>.
+      </div>
+
+      <div class="notice">
+        If you didn’t request this password reset, no action is required.
+        Your account will remain secure.
+      </div>
+
+      <div class="footer">
+        © FitSphere · Train smarter. Live stronger.
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
+
       `;
       await transporter.sendMail({
         from: process.env.SMTP_FROM_EMAIL,
